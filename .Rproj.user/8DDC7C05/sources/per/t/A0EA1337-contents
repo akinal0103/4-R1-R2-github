@@ -11,7 +11,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## 1 Using the iri dataset
 
-### 1-1 Get a subset with STATE_CODE 6 and SHRP_ID with 050
+### 1-1 
+Get a subset with STATE_CODE 6 and SHRP_ID with 050.
 
 ```{r 1-1}
 library("dplyr")
@@ -22,7 +23,8 @@ sub_iri <- subset(iri, STATE_CODE == 6 & substr(SHRP_ID, 1, 3) == '050')
 head(sub_iri, n = 10)
 ```
 
-### 1-2 Obtain the summary statistics of IRI of each section: min, max, and mean
+### 1-2 
+Obtain the summary statistics of IRI of each section: min, max, and mean.
 
 ```{r message = FALSE, warning=FALSE, 1-2}
 sta_sec <- iri |>
@@ -32,7 +34,8 @@ sta_sec <- iri |>
 head(sta_sec, n = 10)
 ```
 
-### 1-3 Sort the summarized data by the averaged IRI in a descending order (report results for one section only)
+### 1-3 
+Sort the summarized data by the averaged IRI in a descending order (report results for one section only).
 
 ```{r 1-3}
 sta_sec_desc <- sta_sec |>
@@ -41,7 +44,8 @@ sta_sec_desc <- sta_sec |>
 head(sta_sec_desc)
 ```
 
-### 1-4 Generate a scatter plot for the averaged IRI against the time for a selected section, and then give your interpretation of the plot.
+### 1-4 
+Generate a scatter plot for the averaged IRI against the time for a selected section, and then give your interpretation of the plot.
 
 Firstly, select a section with a relatively large sample size.
 
@@ -54,7 +58,7 @@ iri_count <- iri |>
 head(iri_count, n = 5)
 ```
 
-Then, perform statistics for section:(4, 0215)
+Then, perform statistics for section:(4, 0215).
 
 ```{r 1-3-2}
 iri_4_0215 <- subset(iri, STATE_CODE == 4 & SHRP_ID == '0215') |>
@@ -71,7 +75,10 @@ axis.Date(1, at = seq(min(iri_4_0215$DATE), max(iri_4_0215$DATE), by = "5 years"
 The average IRI increased gradually from 1994 to 2004. From 2004 to 2014, the average IRI remained at a stable high level. After 2014, the average IRI gradually decreased. This indicates that the section experienced a gradual deterioration of road roughness in the early stage, which has been improved during the past 10 years.
 
 ## 2 Using the CRSS datasets in 2017
-### 2-1 Get the intersection of the datasets accident and person
+### 2-1 
+
+Get the intersection of the datasets accident and person.
+
 ```{r 2-1}
 accident <- read.csv("data/CRSS/ACCIDENT.csv")
 person <- read.csv("data/CRSS/PERSON.csv")
@@ -81,7 +88,9 @@ intersection <- intersect(colnames(accident), colnames(person))
 
 print(intersection)
 ```
-### 2-2 Tabulate the total number of observations in each injury severity (INJ_SEV)
+### 2-2 
+
+Tabulate the total number of observations in each injury severity (INJ_SEV).
 
 ```{r 2-2}
 count_inj_sev <- person |>
@@ -91,7 +100,9 @@ count_inj_sev <- person |>
 count_inj_sev
 ```
 
-### 2-3 Merge the accident dataset with the vehicle dataset, and report the dimension of your results and number of missing values in one variable of the right dataset
+### 2-3 
+
+Merge the accident dataset with the vehicle dataset, and report the dimension of your results and number of missing values in one variable of the right dataset.
 
 ```{r message = FALSE, warning=FALSE, 2-3}
 library("naniar")
@@ -103,6 +114,14 @@ joined |>
 ```
 
 ## 3 Push your homework to a git repository
+Link: https://github.com/akinal0103/4-R1-R2-github
+
+```{r out.width = '100%', fig.align='middle', echo=FALSE}
+knitr::include_graphics("data/screenshot.png")
+```
+
+## 4 关于本课程的建议
+希望老师可以介绍更多交通领域常用的公共数据集，以及利用这些公共数据集做的研究工作。
 
 
 

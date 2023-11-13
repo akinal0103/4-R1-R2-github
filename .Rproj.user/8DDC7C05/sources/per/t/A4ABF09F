@@ -1,6 +1,6 @@
 {
     "id": "A4ABF09F",
-    "path": "D:/研一/交通数据分析与应用/作业5 R/Rproject/rmd/1.Rmd",
+    "path": "D:/研一/交通数据分析与应用/作业4 R1&R2/4 R1&R2 github/rmd/1.Rmd",
     "project_path": "rmd/1.Rmd",
     "type": "r_markdown",
     "hash": "3984783896",
@@ -13,7 +13,7 @@
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "33,0",
+        "cursorPosition": "4,21",
         "scrollLine": "0",
         "rmdVisualMode": "false",
         "rmdVisualCollapsedChunks": "",
@@ -25,11 +25,11 @@
         "last_setup_crc32": ""
     },
     "folds": "",
-    "lastKnownWriteTime": 1698982069,
+    "lastKnownWriteTime": 1699857463,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1698982069,
+    "last_content_update": 1699857463145,
     "read_only": false,
     "read_only_alternatives": []
 }

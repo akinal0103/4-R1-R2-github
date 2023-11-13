@@ -1,7 +1,0 @@
-"0","iri_4_0215 <- subset(iri, STATE_CODE == 4 & SHRP_ID == '0215') |>"
-"0","  separate(col = VISIT_DATE, "
-"0","           into = c(""DATE"", ""TIME""),"
-"0","           sep = "","") |>"
-"0","  mutate(DATE = as.Date(DATE, ""%m/%d/%y""))"
-"0",""
-"0","plot(iri_4_0215$DATE, iri_4_0215$IRI, xaxt = ""n"", xlab = ""date"", ylab = ""mean IRI"")"
