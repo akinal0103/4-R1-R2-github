@@ -1,0 +1,34 @@
+---
+title: "Trans. data analysis(R) Assignment 1"
+author: "2331609 刘畅"
+date: "2023-11-03"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+Load your own .csv file into R, report the dimension of your data frame, then generate a scatter plot using the plot() function.
+
+```{r ChickWeight}
+data("ChickWeight")
+dim(ChickWeight)
+```
+
+```{r plot}
+df <- ChickWeight[ChickWeight$Chick == 1, ]
+plot(df$Time, df$weight)
+```
+
+## Question 2
+
+Write a loop to calculate the mean value of a random numeric vector of length 50.
+
+```{r mean}
+vec1 <- rnorm(50)
+mean(vec1)
+```
+

@@ -1,0 +1,108 @@
+---
+title: "Trans. data analysis(R) Assignment 2"
+author: "2331609 刘畅"
+date: "2023-11-10"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1 Using the iri dataset
+
+### 1-1 Get a subset with STATE_CODE 6 and SHRP_ID with 050
+
+```{r 1-1}
+library("dplyr")
+library("tidyr")
+iri <- read.csv("data/iri.csv")
+sub_iri <- subset(iri, STATE_CODE == 6 & substr(SHRP_ID, 1, 3) == '050')
+
+head(sub_iri, n = 10)
+```
+
+### 1-2 Obtain the summary statistics of IRI of each section: min, max, and mean
+
+```{r message = FALSE, warning=FALSE, 1-2}
+sta_sec <- iri |>
+  group_by(STATE_CODE, SHRP_ID) |>
+  summarize(min = min(IRI), max = max(IRI), mean = mean(IRI))
+
+head(sta_sec, n = 10)
+```
+
+### 1-3 Sort the summarized data by the averaged IRI in a descending order (report results for one section only)
+
+```{r 1-3}
+sta_sec_desc <- sta_sec |>
+  arrange(desc(mean))
+
+head(sta_sec_desc)
+```
+
+### 1-4 Generate a scatter plot for the averaged IRI against the time for a selected section, and then give your interpretation of the plot.
+
+Firstly, select a section with a relatively large sample size.
+
+```{r message = FALSE, warning=FALSE, 1-4}
+iri_count <- iri |>
+  group_by(STATE_CODE, SHRP_ID) |>
+  summarise(num = n()) |>
+  arrange(desc(num))
+
+head(iri_count, n = 5)
+```
+
+Then, perform statistics for section:(4, 0215)
+
+```{r 1-3-2}
+iri_4_0215 <- subset(iri, STATE_CODE == 4 & SHRP_ID == '0215') |>
+  separate(col = VISIT_DATE, 
+           into = c("DATE", "TIME"),
+           sep = ",") |>
+  mutate(DATE = as.Date(DATE, "%m/%d/%y"))
+
+plot(iri_4_0215$DATE, iri_4_0215$IRI, xaxt = "n", xlab = "date", ylab = "mean IRI")
+axis.Date(1, at = seq(min(iri_4_0215$DATE), max(iri_4_0215$DATE), by = "5 years"), format = "%Y")
+
+```
+
+The average IRI increased gradually from 1994 to 2004. From 2004 to 2014, the average IRI remained at a stable high level. After 2014, the average IRI gradually decreased. This indicates that the section experienced a gradual deterioration of road roughness in the early stage, which has been improved during the past 10 years.
+
+## 2 Using the CRSS datasets in 2017
+### 2-1 Get the intersection of the datasets accident and person
+```{r 2-1}
+accident <- read.csv("data/CRSS/ACCIDENT.csv")
+person <- read.csv("data/CRSS/PERSON.csv")
+vehicle <- read.csv("data/CRSS/VEHICLE.csv")
+
+intersection <- intersect(colnames(accident), colnames(person))
+
+print(intersection)
+```
+### 2-2 Tabulate the total number of observations in each injury severity (INJ_SEV)
+
+```{r 2-2}
+count_inj_sev <- person |>
+  group_by(INJ_SEV) |>
+  summarise(observation_num = n())
+
+count_inj_sev
+```
+
+### 2-3 Merge the accident dataset with the vehicle dataset, and report the dimension of your results and number of missing values in one variable of the right dataset
+
+```{r message = FALSE, warning=FALSE, 2-3}
+library("naniar")
+joined <- left_join(accident, vehicle)
+dim(joined)
+
+joined |>
+  miss_var_summary()
+```
+
+## 3 Push your homework to a git repository
+
+
+
